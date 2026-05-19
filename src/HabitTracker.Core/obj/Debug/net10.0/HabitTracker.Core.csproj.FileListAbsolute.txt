@@ -1,0 +1,12 @@
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/bin/Debug/net10.0/HabitTracker.Core.deps.json
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/bin/Debug/net10.0/HabitTracker.Core.dll
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/bin/Debug/net10.0/HabitTracker.Core.pdb
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.csproj.AssemblyReference.cache
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.AssemblyInfoInputs.cache
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.AssemblyInfo.cs
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.csproj.CoreCompileInputs.cache
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.dll
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/refint/HabitTracker.Core.dll
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/HabitTracker.Core.pdb
+/Users/andreymarchenko/Desktop/Projects/HabitTracker/src/HabitTracker.Core/obj/Debug/net10.0/ref/HabitTracker.Core.dll
