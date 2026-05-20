@@ -1,4 +1,4 @@
-namespace HabitTracker.App.ViewModels;
+namespace HabitTracker.Desktop.ViewModels;
 
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,7 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using HabitTracker.Core.Interfaces;
 using HabitTracker.Core.Messages;
 
-public partial class LoginViewModel : ViewModelBase
+public partial class RegisterViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
     private readonly IMessenger _messenger;
@@ -19,26 +19,40 @@ public partial class LoginViewModel : ViewModelBase
     private string _password = string.Empty;
 
     [ObservableProperty]
+    private string _confirmPassword = string.Empty;
+
+    [ObservableProperty]
+    private string _displayName = string.Empty;
+
+    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
     private bool _isLoading;
 
-    public LoginViewModel(IAuthService authService, IMessenger messenger)
+    public RegisterViewModel(IAuthService authService, IMessenger messenger)
     {
         _authService = authService;
         _messenger = messenger;
     }
 
     [RelayCommand]
-    private async Task LoginAsync()
+    private async Task RegisterAsync()
     {
         ErrorMessage = string.Empty;
+
+        if (Password != ConfirmPassword)
+        {
+            ErrorMessage = "Пароли не совпадают";
+            return;
+        }
+
         IsLoading = true;
 
         try
         {
-            var (success, error, user) = await _authService.LoginAsync(Username, Password);
+            var (success, error, user) = await _authService.RegisterAsync(
+                Username, Password, DisplayName);
 
             if (success && user != null)
             {
@@ -60,8 +74,8 @@ public partial class LoginViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void GoToRegister()
+    private void GoToLogin()
     {
-        _messenger.Send(new NavigationMessage("Register"));
+        _messenger.Send(new NavigationMessage("Login"));
     }
 }

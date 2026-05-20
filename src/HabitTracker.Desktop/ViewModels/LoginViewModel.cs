@@ -1,4 +1,4 @@
-namespace HabitTracker.App.ViewModels;
+namespace HabitTracker.Desktop.ViewModels;
 
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,7 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using HabitTracker.Core.Interfaces;
 using HabitTracker.Core.Messages;
 
-public partial class RegisterViewModel : ViewModelBase
+public partial class LoginViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
     private readonly IMessenger _messenger;
@@ -19,40 +19,26 @@ public partial class RegisterViewModel : ViewModelBase
     private string _password = string.Empty;
 
     [ObservableProperty]
-    private string _confirmPassword = string.Empty;
-
-    [ObservableProperty]
-    private string _displayName = string.Empty;
-
-    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
     private bool _isLoading;
 
-    public RegisterViewModel(IAuthService authService, IMessenger messenger)
+    public LoginViewModel(IAuthService authService, IMessenger messenger)
     {
         _authService = authService;
         _messenger = messenger;
     }
 
     [RelayCommand]
-    private async Task RegisterAsync()
+    private async Task LoginAsync()
     {
         ErrorMessage = string.Empty;
-
-        if (Password != ConfirmPassword)
-        {
-            ErrorMessage = "Пароли не совпадают";
-            return;
-        }
-
         IsLoading = true;
 
         try
         {
-            var (success, error, user) = await _authService.RegisterAsync(
-                Username, Password, DisplayName);
+            var (success, error, user) = await _authService.LoginAsync(Username, Password);
 
             if (success && user != null)
             {
@@ -74,8 +60,8 @@ public partial class RegisterViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void GoToLogin()
+    private void GoToRegister()
     {
-        _messenger.Send(new NavigationMessage("Login"));
+        _messenger.Send(new NavigationMessage("Register"));
     }
 }

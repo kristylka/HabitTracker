@@ -1,27 +1,28 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:HabitTracker.App.ViewModels"
-             x:Class="HabitTracker.App.Views.RegisterView"
-             x:DataType="vm:RegisterViewModel">
+             xmlns:vm="using:HabitTracker.Desktop.ViewModels"
+             x:Class="HabitTracker.Desktop.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Background="White" CornerRadius="12" Padding="32" Width="400">
             <StackPanel Spacing="16">
-                <TextBlock Text="📝" FontSize="48" HorizontalAlignment="Center"/>
+                <TextBlock Text="🌱" FontSize="48" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Регистрация"
+                <TextBlock Text="Трекер привычек"
                            FontSize="24"
                            FontWeight="Bold"
                            HorizontalAlignment="Center"
                            Foreground="#2E7D32"/>
 
+                <TextBlock Text="Войдите в аккаунт"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="Gray"
+                           Margin="0,0,0,8"/>
+
                 <TextBox Watermark="Имя пользователя"
                          Text="{Binding Username}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
-
-                <TextBox Watermark="Отображаемое имя"
-                         Text="{Binding DisplayName}"
                          CornerRadius="8"
                          Padding="12,10"/>
 
@@ -31,19 +32,13 @@
                          CornerRadius="8"
                          Padding="12,10"/>
 
-                <TextBox Watermark="Подтвердите пароль"
-                         PasswordChar="•"
-                         Text="{Binding ConfirmPassword}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
-
                 <TextBlock Text="{Binding ErrorMessage}"
                            Foreground="#f44336"
                            FontSize="13"
                            IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                            TextWrapping="Wrap"/>
 
-                <Button Content="Зарегистрироваться"
+                <Button Content="Войти"
                         Background="#4CAF50"
                         Foreground="White"
                         FontWeight="SemiBold"
@@ -51,21 +46,21 @@
                         HorizontalContentAlignment="Center"
                         Padding="12,10"
                         CornerRadius="8"
-                        Command="{Binding RegisterCommand}"
+                        Command="{Binding LoginCommand}"
                         IsEnabled="{Binding !IsLoading}"/>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Spacing="4">
-                    <TextBlock Text="Уже есть аккаунт?"
+                    <TextBlock Text="Нет аккаунта?"
                                VerticalAlignment="Center"
                                Foreground="Gray"/>
-                    <Button Content="Войти"
+                    <Button Content="Зарегистрироваться"
                             Background="Transparent"
                             Foreground="#2E7D32"
                             FontWeight="SemiBold"
                             Padding="4"
-                            Command="{Binding GoToLoginCommand}"/>
+                            Command="{Binding GoToRegisterCommand}"/>
                 </StackPanel>
             </StackPanel>
         </Border>

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+  <OutputType>WinExe</OutputType>
+  <TargetFramework>net8.0</TargetFramework>
+  <Nullable>enable</Nullable>
+  <ApplicationManifest>app.manifest</ApplicationManifest>
+  <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+  <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+  <DisableAvaloniaMacAppBundle>true</DisableAvaloniaMacAppBundle>
+  <UseAppHost>false</UseAppHost>
+</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1" Condition="'$(Configuration)' == 'Debug'" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="2.88.8" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="7.3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HabitTracker.Core\HabitTracker.Core.csproj" />
+    <ProjectReference Include="..\HabitTracker.Data\HabitTracker.Data.csproj" />
+    <ProjectReference Include="..\HabitTracker.Services\HabitTracker.Services.csproj" />
+  </ItemGroup>
+
+</Project>

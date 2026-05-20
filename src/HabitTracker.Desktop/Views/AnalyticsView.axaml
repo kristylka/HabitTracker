@@ -1,8 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:HabitTracker.App.ViewModels"
-             x:Class="HabitTracker.App.Views.AnalyticsView"
-             x:DataType="vm:AnalyticsViewModel">
+             xmlns:vm="using:HabitTracker.Desktop.ViewModels"
+             x:Class="HabitTracker.Desktop.Views.AnalyticsView"
+             x:CompileBindings="False">
 
     <ScrollViewer>
         <StackPanel Margin="32,24" Spacing="20">
@@ -66,11 +66,6 @@
                                FontSize="18"
                                FontWeight="SemiBold"/>
 
-                    <TextBlock Text="Нет данных для отображения"
-                               Foreground="Gray"
-                               FontStyle="Italic"
-                               IsVisible="{Binding !HabitStats.Count}"/>
-
                     <ItemsControl ItemsSource="{Binding HabitStats}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -98,28 +93,11 @@
                                             </StackPanel>
                                         </DockPanel>
 
-                                        <Border Height="8"
-                                                Background="#E0E0E0"
-                                                CornerRadius="4">
-                                            <Border Background="{Binding Color}"
-                                                    CornerRadius="4"
-                                                    HorizontalAlignment="Left"
-                                                    MinWidth="4"/>
-                                        </Border>
-
                                         <StackPanel Orientation="Horizontal" Spacing="16">
-                                            <TextBlock FontSize="12"
-                                                       Foreground="Gray">
-                                                <Run Text="Серия: "/>
-                                                <Run Text="{Binding CurrentStreak}"/>
-                                                <Run Text=" дн."/>
-                                            </TextBlock>
-                                            <TextBlock FontSize="12"
-                                                       Foreground="Gray">
-                                                <Run Text="Рекорд: "/>
-                                                <Run Text="{Binding BestStreak}"/>
-                                                <Run Text=" дн."/>
-                                            </TextBlock>
+                                            <TextBlock FontSize="12" Foreground="Gray"
+                                                       Text="{Binding CurrentStreak, StringFormat='Серия: {0} дн.'}"/>
+                                            <TextBlock FontSize="12" Foreground="Gray"
+                                                       Text="{Binding BestStreak, StringFormat='Рекорд: {0} дн.'}"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>

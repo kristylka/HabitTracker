@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace HabitTracker.App.Views;
+namespace HabitTracker.Desktop.Views;
 
 public partial class CalendarView : UserControl
 {

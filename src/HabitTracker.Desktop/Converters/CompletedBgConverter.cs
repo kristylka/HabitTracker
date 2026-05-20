@@ -3,7 +3,7 @@ using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace HabitTracker.App.Converters;
+namespace HabitTracker.Desktop.Converters;
 
 public class CompletedBgConverter : IValueConverter
 {

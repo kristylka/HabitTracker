@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HabitTracker.Desktop.ViewModels"
+        xmlns:views="using:HabitTracker.Desktop.Views"
+        x:Class="HabitTracker.Desktop.Views.MainWindow"
+        Title="Трекер привычек"
+        Width="1100" Height="700"
+        MinWidth="900" MinHeight="600"
+        x:CompileBindings="False"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+    <DockPanel>
+        <Border DockPanel.Dock="Left"
+                Background="#2E7D32"
+                Width="220"
+                IsVisible="{Binding IsLoggedIn}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="16,28,16,32">
+                    <TextBlock Text="🌱"
+                               FontSize="36"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Трекер привычек"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <Border DockPanel.Dock="Bottom" Margin="12,0,12,20">
+                    <Button Content="🚪  Выход"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Foreground="White"
+                            Padding="16,12"
+                            Command="{Binding LogoutCommand}"/>
+                </Border>
+
+                <StackPanel Margin="12,0" Spacing="4">
+                    <Button Content="📅  Календарь"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Foreground="White"
+                            Padding="16,12"
+                            Command="{Binding NavigateToCalendarCommand}"/>
+
+                    <Button Content="📊  Аналитика"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Foreground="White"
+                            Padding="16,12"
+                            Command="{Binding NavigateToAnalyticsCommand}"/>
+
+                    <Button Content="👤  Профиль"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Foreground="White"
+                            Padding="16,12"
+                            Command="{Binding NavigateToProfileCommand}"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ContentControl Content="{Binding CurrentView}">
+            <ContentControl.DataTemplates>
+                <DataTemplate DataType="vm:LoginViewModel">
+                    <views:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:RegisterViewModel">
+                    <views:RegisterView/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:CalendarViewModel">
+                    <views:CalendarView/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:AnalyticsViewModel">
+                    <views:AnalyticsView/>
+                </DataTemplate>
+                <DataTemplate DataType="vm:ProfileViewModel">
+                    <views:ProfileView/>
+                </DataTemplate>
+            </ContentControl.DataTemplates>
+        </ContentControl>
+    </DockPanel>
+</Window>

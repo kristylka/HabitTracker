@@ -1,4 +1,4 @@
-namespace HabitTracker.App.ViewModels;
+namespace HabitTracker.Desktop.ViewModels;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
