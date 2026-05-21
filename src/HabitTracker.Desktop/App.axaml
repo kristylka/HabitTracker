@@ -3,5 +3,6 @@
              x:Class="HabitTracker.Desktop.App">
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://HabitTracker.Desktop/Styles/AppStyles.axaml"/>
     </Application.Styles>
 </Application>

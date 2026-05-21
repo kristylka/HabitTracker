@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:HabitTracker.Desktop.ViewModels"
              x:Class="HabitTracker.Desktop.Views.ProfileView"
-             x:DataType="vm:ProfileViewModel">
+             x:DataType="vm:ProfileViewModel"
+             x:CompileBindings="False">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Background="White" CornerRadius="12" Padding="40" Width="420">
@@ -11,7 +12,7 @@
                            FontSize="64"
                            HorizontalAlignment="Center"/>
 
-                <TextBlock Text="{Binding }"
+                <TextBlock Text="{Binding DisplayName}"
                            FontSize="26"
                            FontWeight="Bold"
                            HorizontalAlignment="Center"/>
@@ -23,7 +24,7 @@
                                        FontWeight="SemiBold"
                                        Foreground="Gray"
                                        Width="140"/>
-                            <TextBlock Text="{Binding }"
+                            <TextBlock Text="{Binding Username}"
                                        FontSize="14"/>
                         </DockPanel>
 
@@ -34,7 +35,7 @@
                                        FontWeight="SemiBold"
                                        Foreground="Gray"
                                        Width="140"/>
-                            <TextBlock Text="{Binding , StringFormat='{}{0:dd.MM.yyyy}'}"
+                            <TextBlock Text="{Binding MemberSince, StringFormat='{}{0:dd.MM.yyyy}'}"
                                        FontSize="14"/>
                         </DockPanel>
                     </StackPanel>
@@ -48,7 +49,8 @@
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
                         Padding="16,12"
-                        CornerRadius="8"/>
+                        CornerRadius="8"
+                        Command="{Binding LogoutCommand}"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -110,17 +110,17 @@
                                         Background="#FAFAFA">
                                     <DockPanel>
                                         <TextBlock DockPanel.Dock="Right"
-                                                   Text="{Binding ScheduledTime, StringFormat='{}{0:hh\\:mm}'}"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="#2E7D32"
-                                                   VerticalAlignment="Center"/>
+                                                Text="{Binding ScheduledTime, StringFormat='{}{0:hh\\:mm}'}"
+                                                FontWeight="SemiBold"
+                                                Foreground="#2E7D32"
+                                                VerticalAlignment="Center"/>
 
-                                        <CheckBox IsChecked="{Binding IsCompleted}"
-                                                  Command="{Binding $parent[ItemsControl].DataContext.ToggleEntryCommand}"
-                                                  CommandParameter="{Binding}">
+                                        <CheckBox IsChecked="{Binding IsCompleted, Mode=OneWay}"
+                                                Command="{Binding $parent[ItemsControl].DataContext.ToggleEntryCommand}"
+                                                CommandParameter="{Binding}">
                                             <TextBlock Text="{Binding Habit.Name}"
-                                                       FontSize="14"
-                                                       VerticalAlignment="Center"/>
+                                                    FontSize="14"
+                                                    VerticalAlignment="Center"/>
                                         </CheckBox>
                                     </DockPanel>
                                 </Border>

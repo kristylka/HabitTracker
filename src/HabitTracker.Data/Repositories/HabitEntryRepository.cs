@@ -6,63 +6,80 @@ using HabitTracker.Core.Models;
 
 public class HabitEntryRepository : IHabitEntryRepository
 {
-    private readonly AppDbContext _db;
+    private readonly IDbContextFactory<AppDbContext> _factory;
 
-    public HabitEntryRepository(AppDbContext db)
+    public HabitEntryRepository(IDbContextFactory<AppDbContext> factory)
     {
-        _db = db;
+        _factory = factory;
     }
 
     public async Task<HabitEntry?> GetByIdAsync(int id)
-        => await _db.HabitEntries.Include(e => e.Habit).FirstOrDefaultAsync(e => e.Id == id);
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.HabitEntries.Include(e => e.Habit).FirstOrDefaultAsync(e => e.Id == id);
+    }
 
     public async Task<List<HabitEntry>> GetByHabitIdAsync(int habitId)
-        => await _db.HabitEntries
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        var list = await db.HabitEntries
             .Where(e => e.HabitId == habitId)
-            .OrderBy(e => e.Date)
             .ToListAsync();
+        return list.OrderBy(e => e.Date).ToList();
+    }
 
     public async Task<List<HabitEntry>> GetByDateRangeAsync(int userId, DateTime from, DateTime to)
-        => await _db.HabitEntries
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        var list = await db.HabitEntries
             .Include(e => e.Habit)
             .Where(e => e.Habit!.UserId == userId && e.Date >= from && e.Date <= to)
-            .OrderBy(e => e.Date)
-            .ThenBy(e => e.ScheduledTime)
             .ToListAsync();
+        return list.OrderBy(e => e.Date).ThenBy(e => e.ScheduledTime).ToList();
+    }
 
     public async Task<List<HabitEntry>> GetByDateAsync(int userId, DateTime date)
-        => await _db.HabitEntries
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        var list = await db.HabitEntries
             .Include(e => e.Habit)
             .Where(e => e.Habit!.UserId == userId && e.Date.Date == date.Date)
-            .OrderBy(e => e.ScheduledTime)
             .ToListAsync();
+        return list.OrderBy(e => e.ScheduledTime).ToList();
+    }
 
     public async Task<HabitEntry> CreateAsync(HabitEntry entry)
     {
-        _db.HabitEntries.Add(entry);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.HabitEntries.Add(entry);
+        await db.SaveChangesAsync();
         return entry;
     }
 
     public async Task UpdateAsync(HabitEntry entry)
     {
-        _db.HabitEntries.Update(entry);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.HabitEntries.Update(entry);
+        await db.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var entry = await _db.HabitEntries.FindAsync(id);
+        await using var db = await _factory.CreateDbContextAsync();
+        var entry = await db.HabitEntries.FindAsync(id);
         if (entry != null)
         {
-            _db.HabitEntries.Remove(entry);
-            await _db.SaveChangesAsync();
+            db.HabitEntries.Remove(entry);
+            await db.SaveChangesAsync();
         }
     }
 
     public async Task<HabitEntry?> GetByHabitAndDateAsync(int habitId, DateTime date, TimeSpan? scheduledTime)
-        => await _db.HabitEntries
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.HabitEntries
             .FirstOrDefaultAsync(e => e.HabitId == habitId
                 && e.Date.Date == date.Date
                 && e.ScheduledTime == scheduledTime);
+    }
 }

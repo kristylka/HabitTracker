@@ -6,45 +6,54 @@ using HabitTracker.Core.Models;
 
 public class HabitRepository : IHabitRepository
 {
-    private readonly AppDbContext _db;
+    private readonly IDbContextFactory<AppDbContext> _factory;
 
-    public HabitRepository(AppDbContext db)
+    public HabitRepository(IDbContextFactory<AppDbContext> factory)
     {
-        _db = db;
+        _factory = factory;
     }
 
     public async Task<Habit?> GetByIdAsync(int id)
-        => await _db.Habits
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Habits
             .Include(h => h.Schedules)
             .Include(h => h.Entries)
             .FirstOrDefaultAsync(h => h.Id == id);
+    }
 
     public async Task<List<Habit>> GetByUserIdAsync(int userId)
-        => await _db.Habits
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        return await db.Habits
             .Include(h => h.Schedules)
             .Where(h => h.UserId == userId && h.IsActive)
             .ToListAsync();
+    }
 
     public async Task<Habit> CreateAsync(Habit habit)
     {
-        _db.Habits.Add(habit);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Habits.Add(habit);
+        await db.SaveChangesAsync();
         return habit;
     }
 
     public async Task UpdateAsync(Habit habit)
     {
-        _db.Habits.Update(habit);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.Habits.Update(habit);
+        await db.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var habit = await _db.Habits.FindAsync(id);
+        await using var db = await _factory.CreateDbContextAsync();
+        var habit = await db.Habits.FindAsync(id);
         if (habit != null)
         {
-            _db.Habits.Remove(habit);
-            await _db.SaveChangesAsync();
+            db.Habits.Remove(habit);
+            await db.SaveChangesAsync();
         }
     }
 }

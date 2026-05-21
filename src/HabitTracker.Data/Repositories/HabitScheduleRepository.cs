@@ -6,56 +6,65 @@ using HabitTracker.Core.Models;
 
 public class HabitScheduleRepository : IHabitScheduleRepository
 {
-    private readonly AppDbContext _db;
+    private readonly IDbContextFactory<AppDbContext> _factory;
 
-    public HabitScheduleRepository(AppDbContext db)
+    public HabitScheduleRepository(IDbContextFactory<AppDbContext> factory)
     {
-        _db = db;
+        _factory = factory;
     }
 
     public async Task<List<HabitSchedule>> GetByHabitIdAsync(int habitId)
-        => await _db.HabitSchedules
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        var list = await db.HabitSchedules
             .Where(s => s.HabitId == habitId)
-            .OrderBy(s => s.DayOfWeek)
-            .ThenBy(s => s.Time)
             .ToListAsync();
+        return list.OrderBy(s => s.DayOfWeek).ThenBy(s => s.Time).ToList();
+    }
 
     public async Task<List<HabitSchedule>> GetByUserAndDayAsync(int userId, DayOfWeek day)
-        => await _db.HabitSchedules
+    {
+        await using var db = await _factory.CreateDbContextAsync();
+        var list = await db.HabitSchedules
             .Include(s => s.Habit)
             .Where(s => s.Habit!.UserId == userId && s.Habit.IsActive && s.DayOfWeek == day)
-            .OrderBy(s => s.Time)
             .ToListAsync();
+        return list.OrderBy(s => s.Time).ToList();
+    }
 
     public async Task<HabitSchedule> CreateAsync(HabitSchedule schedule)
     {
-        _db.HabitSchedules.Add(schedule);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.HabitSchedules.Add(schedule);
+        await db.SaveChangesAsync();
         return schedule;
     }
 
     public async Task UpdateAsync(HabitSchedule schedule)
     {
-        _db.HabitSchedules.Update(schedule);
-        await _db.SaveChangesAsync();
+        await using var db = await _factory.CreateDbContextAsync();
+        db.HabitSchedules.Update(schedule);
+        await db.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var schedule = await _db.HabitSchedules.FindAsync(id);
+        await using var db = await _factory.CreateDbContextAsync();
+        var schedule = await db.HabitSchedules.FindAsync(id);
         if (schedule != null)
         {
-            _db.HabitSchedules.Remove(schedule);
-            await _db.SaveChangesAsync();
+            db.HabitSchedules.Remove(schedule);
+            await db.SaveChangesAsync();
         }
     }
 
     public async Task DeleteByHabitIdAsync(int habitId)
     {
-        var schedules = await _db.HabitSchedules
+        await using var db = await _factory.CreateDbContextAsync();
+        var schedules = await db.HabitSchedules
             .Where(s => s.HabitId == habitId)
             .ToListAsync();
-        _db.HabitSchedules.RemoveRange(schedules);
-        await _db.SaveChangesAsync();
+        db.HabitSchedules.RemoveRange(schedules);
+        await db.SaveChangesAsync();
     }
 }

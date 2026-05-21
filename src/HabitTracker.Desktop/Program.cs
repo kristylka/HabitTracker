@@ -24,9 +24,8 @@ class Program
         var serviceProvider = services.BuildServiceProvider();
         App.Services = serviceProvider;
 
-        using (var scope = serviceProvider.CreateScope())
+        using (var db = serviceProvider.GetRequiredService<IDbContextFactory<AppDbContext>>().CreateDbContext())
         {
-            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             db.Database.EnsureCreated();
         }
 
@@ -43,7 +42,7 @@ class Program
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
 
-        services.AddDbContext<AppDbContext>(options =>
+        services.AddDbContextFactory<AppDbContext>(options =>
             options.UseSqlite($"Data Source={dbPath}"));
 
         services.AddScoped<IUserRepository, UserRepository>();
