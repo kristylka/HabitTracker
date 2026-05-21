@@ -29,38 +29,22 @@
                 </StackPanel>
 
                 <Border DockPanel.Dock="Bottom" Margin="12,0,12,20">
-                    <Button Content="Выход"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            Foreground="White"
-                            Padding="16,12"
+                    <Button Classes="nav"
+                            Content="Выход"
                             Command="{Binding LogoutCommand}"/>
                 </Border>
 
                 <StackPanel Margin="12,0" Spacing="4">
-                    <Button Content="Календарь"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            Foreground="White"
-                            Padding="16,12"
+                    <Button Classes="nav"
+                            Content="Календарь"
                             Command="{Binding NavigateToCalendarCommand}"/>
 
-                    <Button Content="Аналитика"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            Foreground="White"
-                            Padding="16,12"
+                    <Button Classes="nav"
+                            Content="Аналитика"
                             Command="{Binding NavigateToAnalyticsCommand}"/>
 
-                    <Button Content="Профиль"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            Foreground="White"
-                            Padding="16,12"
+                    <Button Classes="nav"
+                            Content="Профиль"
                             Command="{Binding NavigateToProfileCommand}"/>
                 </StackPanel>
             </DockPanel>

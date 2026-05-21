@@ -21,16 +21,28 @@
                            Foreground="Gray"
                            Margin="0,0,0,8"/>
 
-                <TextBox Watermark="Имя пользователя"
-                         Text="{Binding Username}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Логин"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Например: liza123"
+                             Text="{Binding Username}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
-                <TextBox Watermark="Пароль"
-                         PasswordChar="•"
-                         Text="{Binding Password}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Пароль"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Введите пароль"
+                             PasswordChar="•"
+                             Text="{Binding Password}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Foreground="#f44336"
@@ -38,14 +50,10 @@
                            IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                            TextWrapping="Wrap"/>
 
-                <Button Content="Войти"
-                        Background="#4CAF50"
-                        Foreground="White"
-                        FontWeight="SemiBold"
+                <Button Classes="primary"
+                        Content="Войти"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
-                        Padding="12,10"
-                        CornerRadius="8"
                         Command="{Binding LoginCommand}"
                         IsEnabled="{Binding !IsLoading}"/>
 

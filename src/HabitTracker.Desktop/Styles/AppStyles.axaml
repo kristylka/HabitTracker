@@ -5,38 +5,25 @@
         <Setter Property="Background" Value="#F5F5F5"/>
     </Style>
 
-    <Style Selector="Button.nav-button">
+    <Style Selector="Button.nav">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="16,12"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Cursor" Value="Hand"/>
     </Style>
 
-    <Style Selector="Button.nav-button:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#FFFFFF20"/>
+    <Style Selector="Button.nav:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#1B5E20"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
     </Style>
 
-    <Style Selector="Button.nav-button-active">
-        <Setter Property="Background" Value="#FFFFFF30"/>
-        <Setter Property="Foreground" Value="#FFFFFF"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Padding" Value="16,12"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="CornerRadius" Value="8"/>
-        <Setter Property="Cursor" Value="Hand"/>
-    </Style>
-
-    <Style Selector="Border.card">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="CornerRadius" Value="12"/>
-        <Setter Property="Padding" Value="20"/>
-        <Setter Property="BoxShadow" Value="0 2 8 0 #1A000000"/>
+    <Style Selector="Button.nav:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#155218"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
     </Style>
 
     <Style Selector="Button.primary">
@@ -50,6 +37,12 @@
 
     <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="#43A047"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#2E7D32"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
     </Style>
 
     <Style Selector="Button.danger">
@@ -61,9 +54,44 @@
         <Setter Property="FontSize" Value="12"/>
     </Style>
 
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#d32f2f"/>
+        <Setter Property="TextElement.Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="CheckBox /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="#9E9E9E"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+
+    <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="#4CAF50"/>
+        <Setter Property="BorderBrush" Value="#4CAF50"/>
+    </Style>
+
+    <Style Selector="CheckBox:pointerover /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="#4CAF50"/>
+    </Style>
+
+    <Style Selector="CheckBox:checked /template/ Path#CheckGlyph">
+        <Setter Property="Fill" Value="White"/>
+    </Style>
+
     <Style Selector="TextBox.form-input">
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="12,10"/>
         <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="#4CAF50"/>
+    </Style>
+
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="BoxShadow" Value="0 2 8 0 #1A000000"/>
     </Style>
 </Styles>

@@ -6,7 +6,7 @@
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Background="White" CornerRadius="12" Padding="32" Width="400">
-            <StackPanel Spacing="16">
+            <StackPanel Spacing="14">
                 <TextBlock Text="📝" FontSize="48" HorizontalAlignment="Center"/>
 
                 <TextBlock Text="Регистрация"
@@ -15,27 +15,51 @@
                            HorizontalAlignment="Center"
                            Foreground="#2E7D32"/>
 
-                <TextBox Watermark="Имя пользователя"
-                         Text="{Binding Username}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Логин (для входа)"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Например: liza123"
+                             Text="{Binding Username}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
-                <TextBox Watermark="Отображаемое имя"
-                         Text="{Binding DisplayName}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Ваше имя"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Например: Лиза"
+                             Text="{Binding DisplayName}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
-                <TextBox Watermark="Пароль"
-                         PasswordChar="•"
-                         Text="{Binding Password}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Пароль"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Минимум 4 символа"
+                             PasswordChar="•"
+                             Text="{Binding Password}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
-                <TextBox Watermark="Подтвердите пароль"
-                         PasswordChar="•"
-                         Text="{Binding ConfirmPassword}"
-                         CornerRadius="8"
-                         Padding="12,10"/>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Подтвердите пароль"
+                               FontSize="12"
+                               Foreground="#555555"
+                               FontWeight="SemiBold"/>
+                    <TextBox Watermark="Повторите пароль"
+                             PasswordChar="•"
+                             Text="{Binding ConfirmPassword}"
+                             CornerRadius="8"
+                             Padding="12,10"/>
+                </StackPanel>
 
                 <TextBlock Text="{Binding ErrorMessage}"
                            Foreground="#f44336"
@@ -43,14 +67,10 @@
                            IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                            TextWrapping="Wrap"/>
 
-                <Button Content="Зарегистрироваться"
-                        Background="#4CAF50"
-                        Foreground="White"
-                        FontWeight="SemiBold"
+                <Button Classes="primary"
+                        Content="Зарегистрироваться"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
-                        Padding="12,10"
-                        CornerRadius="8"
                         Command="{Binding RegisterCommand}"
                         IsEnabled="{Binding !IsLoading}"/>
 
