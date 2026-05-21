@@ -1,8 +1,25 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="HabitTracker.Desktop.App">
+
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://HabitTracker.Desktop/Styles/AppStyles.axaml"/>
     </Application.Styles>
+
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="avares://HabitTracker.Desktop/Assets/tray-icon.png"
+                      ToolTipText="Трекер привычек"
+                      Clicked="TrayIcon_OnClicked">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Открыть" Click="OpenMenuItem_OnClick"/>
+                        <NativeMenuItemSeparator/>
+                        <NativeMenuItem Header="Выход" Click="ExitMenuItem_OnClick"/>
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
 </Application>

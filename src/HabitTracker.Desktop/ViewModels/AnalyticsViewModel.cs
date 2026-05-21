@@ -28,6 +28,12 @@ public partial class AnalyticsViewModel : ViewModelBase
     [ObservableProperty]
     private int _selectedPeriodDays = 7;
 
+    [ObservableProperty]
+    private bool _hasNoData;
+
+    // Вычисляемое свойство для удобства биндинга в XAML
+    public bool HasData => !HasNoData;
+
     public AnalyticsViewModel(IAnalyticsService analyticsService, IHabitService habitService)
     {
         _analyticsService = analyticsService;
@@ -39,8 +45,14 @@ public partial class AnalyticsViewModel : ViewModelBase
         _userId = userId;
     }
 
+    // Когда меняется HasNoData — нужно обновить и HasData
+    partial void OnHasNoDataChanged(bool value)
+    {
+        OnPropertyChanged(nameof(HasData));
+    }
+
     [RelayCommand]
-    private async Task LoadAnalyticsAsync()
+    public async Task LoadAnalyticsAsync()
     {
         if (_userId == 0) return;
 
@@ -53,9 +65,9 @@ public partial class AnalyticsViewModel : ViewModelBase
             OverallCompletionRate = await _analyticsService.GetCompletionRateAsync(_userId, from, to);
 
             var habitRates = await _analyticsService.GetHabitCompletionRatesAsync(_userId, from, to);
-            var stats = new ObservableCollection<HabitStatItem>();
             var habits = await _habitService.GetUserHabitsAsync(_userId);
 
+            var stats = new ObservableCollection<HabitStatItem>();
             foreach (var habit in habits)
             {
                 var rate = habitRates.ContainsKey(habit.Name) ? habitRates[habit.Name] : 0;
@@ -84,6 +96,8 @@ public partial class AnalyticsViewModel : ViewModelBase
                 });
             }
             DailyStats = dailyStatsList;
+
+            HasNoData = habits.Count == 0;
         }
         finally
         {
@@ -92,10 +106,13 @@ public partial class AnalyticsViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task SetPeriodAsync(int days)
+    public async Task SetPeriodAsync(string days)
     {
-        SelectedPeriodDays = days;
-        await LoadAnalyticsAsync();
+        if (int.TryParse(days, out var d))
+        {
+            SelectedPeriodDays = d;
+            await LoadAnalyticsAsync();
+        }
     }
 }
 

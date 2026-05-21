@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="HabitTracker.Desktop.Views.ToastWindow"
+        Width="340" Height="110"
+        SystemDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="Transparent"
+        ShowInTaskbar="False"
+        Topmost="True"
+        CanResize="False"
+        WindowStartupLocation="Manual">
+
+    <Border Background="#2E7D32"
+            CornerRadius="12"
+            Padding="16"
+            BoxShadow="0 4 16 0 #40000000">
+        <StackPanel Spacing="6">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="🌱" FontSize="20"/>
+                <TextBlock x:Name="TitleText"
+                           Text="Трекер привычек"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock x:Name="MessageText"
+                       Text=""
+                       FontSize="13"
+                       Foreground="White"
+                       TextWrapping="Wrap"
+                       Opacity="0.95"/>
+        </StackPanel>
+    </Border>
+</Window>

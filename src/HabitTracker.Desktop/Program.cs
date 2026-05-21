@@ -10,6 +10,7 @@ using HabitTracker.Desktop.Views;
 using HabitTracker.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using HabitTracker.Desktop.Services;
 
 namespace HabitTracker.Desktop;
 
@@ -55,6 +56,7 @@ class Program
         services.AddScoped<IAnalyticsService, AnalyticsService>();
 
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+        services.AddSingleton<INotificationService, NotificationService>();
 
         services.AddTransient<LoginViewModel>();
         services.AddTransient<RegisterViewModel>();
