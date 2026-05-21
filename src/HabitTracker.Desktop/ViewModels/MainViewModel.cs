@@ -3,6 +3,7 @@ namespace HabitTracker.Desktop.ViewModels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using HabitTracker.Core.Interfaces;
 using HabitTracker.Core.Messages;
 using HabitTracker.Core.Models;
 
@@ -12,6 +13,7 @@ public partial class MainViewModel : ViewModelBase,
     IRecipient<NavigationMessage>
 {
     private readonly IMessenger _messenger;
+    private readonly INotificationScheduler _scheduler;
     private readonly LoginViewModel _loginVm;
     private readonly RegisterViewModel _registerVm;
     private readonly CalendarViewModel _calendarVm;
@@ -31,6 +33,7 @@ public partial class MainViewModel : ViewModelBase,
 
     public MainViewModel(
         IMessenger messenger,
+        INotificationScheduler scheduler,
         LoginViewModel loginVm,
         RegisterViewModel registerVm,
         CalendarViewModel calendarVm,
@@ -38,6 +41,7 @@ public partial class MainViewModel : ViewModelBase,
         ProfileViewModel profileVm)
     {
         _messenger = messenger;
+        _scheduler = scheduler;
         _loginVm = loginVm;
         _registerVm = registerVm;
         _calendarVm = calendarVm;
@@ -59,12 +63,15 @@ public partial class MainViewModel : ViewModelBase,
         _calendarVm.SetUser(_currentUser.Id);
         _analyticsVm.SetUser(_currentUser.Id);
         _profileVm.SetUser(_currentUser);
+        
+        _scheduler.Start(_currentUser.Id);
 
         NavigateToCalendar();
     }
 
     public void Receive(UserLoggedOutMessage message)
     {
+        _scheduler.Stop();
         _currentUser = null;
         IsLoggedIn = false;
         CurrentView = _loginVm;

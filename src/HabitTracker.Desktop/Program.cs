@@ -57,6 +57,7 @@ class Program
 
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
         services.AddSingleton<INotificationService, NotificationService>();
+        services.AddSingleton<INotificationScheduler, NotificationScheduler>();
 
         services.AddTransient<LoginViewModel>();
         services.AddTransient<RegisterViewModel>();

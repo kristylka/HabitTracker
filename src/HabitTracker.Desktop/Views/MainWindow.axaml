@@ -29,7 +29,7 @@
                 </StackPanel>
 
                 <Border DockPanel.Dock="Bottom" Margin="12,0,12,20">
-                    <Button Content="🚪  Выход"
+                    <Button Content="Выход"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             Background="Transparent"
@@ -39,7 +39,7 @@
                 </Border>
 
                 <StackPanel Margin="12,0" Spacing="4">
-                    <Button Content="📅  Календарь"
+                    <Button Content="Календарь"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             Background="Transparent"
@@ -47,7 +47,7 @@
                             Padding="16,12"
                             Command="{Binding NavigateToCalendarCommand}"/>
 
-                    <Button Content="📊  Аналитика"
+                    <Button Content="Аналитика"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             Background="Transparent"
@@ -55,7 +55,7 @@
                             Padding="16,12"
                             Command="{Binding NavigateToAnalyticsCommand}"/>
 
-                    <Button Content="👤  Профиль"
+                    <Button Content="Профиль"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             Background="Transparent"
