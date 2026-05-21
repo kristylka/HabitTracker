@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:HabitTracker.Desktop.ViewModels"
+             xmlns:conv="using:HabitTracker.Desktop.Converters"
              x:Class="HabitTracker.Desktop.Views.AnalyticsView"
              x:CompileBindings="False">
 
@@ -130,9 +131,33 @@
 
                 <Border Background="White" CornerRadius="12" Padding="20">
                     <StackPanel Spacing="16">
-                        <TextBlock Text="Активность по дням"
-                                   FontSize="18"
-                                   FontWeight="SemiBold"/>
+                        <DockPanel>
+                            <TextBlock Text="Активность по дням"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+
+                            <StackPanel DockPanel.Dock="Right"
+                                        Orientation="Horizontal"
+                                        Spacing="6"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right">
+                                <TextBlock Text="меньше"
+                                           FontSize="11"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#EEEEEE"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#C8E6C9"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#A5D6A7"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#66BB6A"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#43A047"/>
+                                <Border Width="14" Height="14" CornerRadius="3" Background="#2E7D32"/>
+                                <TextBlock Text="больше"
+                                           FontSize="11"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DockPanel>
 
                         <ItemsControl ItemsSource="{Binding DailyStats}">
                             <ItemsControl.ItemsPanel>
@@ -151,8 +176,8 @@
                                         <Border Width="44"
                                                 Height="44"
                                                 CornerRadius="8"
-                                                Background="#E8F5E9"
-                                                Margin="0,4"/>
+                                                Margin="0,4"
+                                                Background="{Binding Count, Converter={x:Static conv:HeatmapColorConverter.Instance}}"/>
                                         <TextBlock Text="{Binding Date, StringFormat='{}{0:dd.MM}'}"
                                                    HorizontalAlignment="Center"
                                                    FontSize="10"
