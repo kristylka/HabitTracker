@@ -1,0 +1,53 @@
+Summary
+  Generated on: 23.05.2026 - 00:47:11
+  Coverage date: 23.05.2026 - 00:32:57 - 23.05.2026 - 00:37:36
+  Parser: MultiReport (4x Cobertura)
+  Assemblies: 4
+  Classes: 25
+  Files: 23
+  Line coverage: 95.6%
+  Covered lines: 731
+  Uncovered lines: 33
+  Coverable lines: 764
+  Total lines: 1374
+  Branch coverage: 88% (148 of 168)
+  Covered branches: 148
+  Total branches: 168
+  Method coverage: 91.4% (128 of 140)
+  Full method coverage: 91.4% (128 of 140)
+  Covered methods: 128
+  Fully covered methods: 128
+  Total methods: 140
+
+HabitTracker.Core                                          92.8%
+  HabitTracker.Core.Messages.NavigationMessage              100%
+  HabitTracker.Core.Messages.UserLoggedInMessage            100%
+  HabitTracker.Core.Models.Habit                             90%
+  HabitTracker.Core.Models.HabitEntry                      87.5%
+  HabitTracker.Core.Models.HabitSchedule                   83.3%
+  HabitTracker.Core.Models.User                             100%
+
+HabitTracker.Data                                           100%
+  HabitTracker.Data.AppDbContext                            100%
+  HabitTracker.Data.Repositories.HabitEntryRepository       100%
+  HabitTracker.Data.Repositories.HabitRepository            100%
+  HabitTracker.Data.Repositories.HabitScheduleRepository    100%
+  HabitTracker.Data.Repositories.UserRepository             100%
+
+HabitTracker.Desktop                                         91%
+  HabitTracker.Desktop.Converters.CompletedBgConverter        0%
+  HabitTracker.Desktop.Converters.EqualConverter              0%
+  HabitTracker.Desktop.Converters.HeatmapColorConverter       0%
+  HabitTracker.Desktop.ViewModels.AnalyticsViewModel        100%
+  HabitTracker.Desktop.ViewModels.CalendarViewModel         100%
+  HabitTracker.Desktop.ViewModels.DailyStatItem             100%
+  HabitTracker.Desktop.ViewModels.HabitStatItem             100%
+  HabitTracker.Desktop.ViewModels.LoginViewModel            100%
+  HabitTracker.Desktop.ViewModels.MainViewModel             100%
+  HabitTracker.Desktop.ViewModels.ProfileViewModel          100%
+  HabitTracker.Desktop.ViewModels.RegisterViewModel         100%
+
+HabitTracker.Services                                       100%
+  HabitTracker.Services.AnalyticsService                    100%
+  HabitTracker.Services.AuthService                         100%
+  HabitTracker.Services.HabitService                        100%
