@@ -25,16 +25,33 @@ jobs:
             libfontconfig1-dev libfreetype6-dev
 
       - name: Restore
-        run: dotnet restore -p:RuntimeIdentifier=linux-x64
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release -p:RuntimeIdentifier=linux-x64
+        run: |
+          dotnet build --no-restore --configuration Release \
+            src/HabitTracker.Core/HabitTracker.Core.csproj
+          dotnet build --no-restore --configuration Release \
+            src/HabitTracker.Data/HabitTracker.Data.csproj
+          dotnet build --no-restore --configuration Release \
+            src/HabitTracker.Services/HabitTracker.Services.csproj
+          dotnet build --no-restore --configuration Release \
+            -p:RuntimeIdentifier=linux-x64 \
+            src/HabitTracker.Desktop/HabitTracker.Desktop.csproj
+          dotnet build --no-restore --configuration Release \
+            tests/HabitTracker.Core.Tests/HabitTracker.Core.Tests.csproj
+          dotnet build --no-restore --configuration Release \
+            tests/HabitTracker.Data.Tests/HabitTracker.Data.Tests.csproj
+          dotnet build --no-restore --configuration Release \
+            tests/HabitTracker.Services.Tests/HabitTracker.Services.Tests.csproj
+          dotnet build --no-restore --configuration Release \
+            -p:RuntimeIdentifier=linux-x64 \
+            tests/HabitTracker.Desktop.Tests/HabitTracker.Desktop.Tests.csproj
 
       - name: Test Core
         run: |
           dotnet test tests/HabitTracker.Core.Tests/HabitTracker.Core.Tests.csproj \
             --no-build --configuration Release \
-            -p:RuntimeIdentifier=linux-x64 \
             --collect:"XPlat Code Coverage" \
             --results-directory TestResults/Core \
             -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Core]*"
@@ -43,7 +60,6 @@ jobs:
         run: |
           dotnet test tests/HabitTracker.Data.Tests/HabitTracker.Data.Tests.csproj \
             --no-build --configuration Release \
-            -p:RuntimeIdentifier=linux-x64 \
             --collect:"XPlat Code Coverage" \
             --results-directory TestResults/Data \
             -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Data]*"
@@ -52,7 +68,6 @@ jobs:
         run: |
           dotnet test tests/HabitTracker.Services.Tests/HabitTracker.Services.Tests.csproj \
             --no-build --configuration Release \
-            -p:RuntimeIdentifier=linux-x64 \
             --collect:"XPlat Code Coverage" \
             --results-directory TestResults/Services \
             -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Services]*"
