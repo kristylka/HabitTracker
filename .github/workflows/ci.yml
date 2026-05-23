@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test Core
+        run: |
+          dotnet test tests/HabitTracker.Core.Tests/HabitTracker.Core.Tests.csproj \
+            --no-build --configuration Release \
+            --collect:"XPlat Code Coverage" \
+            --results-directory TestResults/Core \
+            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Core]*"
+
+      - name: Test Data
+        run: |
+          dotnet test tests/HabitTracker.Data.Tests/HabitTracker.Data.Tests.csproj \
+            --no-build --configuration Release \
+            --collect:"XPlat Code Coverage" \
+            --results-directory TestResults/Data \
+            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Data]*"
+
+      - name: Test Services
+        run: |
+          dotnet test tests/HabitTracker.Services.Tests/HabitTracker.Services.Tests.csproj \
+            --no-build --configuration Release \
+            --collect:"XPlat Code Coverage" \
+            --results-directory TestResults/Services \
+            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Services]*"
+
+      - name: Test Desktop
+        run: |
+          dotnet test tests/HabitTracker.Desktop.Tests/HabitTracker.Desktop.Tests.csproj \
+            --no-build --configuration Release \
+            --collect:"XPlat Code Coverage" \
+            --results-directory TestResults/Desktop \
+            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include="[HabitTracker.Desktop]*"
+
+      - name: Install ReportGenerator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Generate Coverage Report
+        run: |
+          reportgenerator \
+            -reports:"TestResults/**/coverage.cobertura.xml" \
+            -targetdir:"TestResults/Report" \
+            -reporttypes:"Html;TextSummary" \
+            -classfilters:"-HabitTracker.Desktop.Views.*;-HabitTracker.Desktop.App;-HabitTracker.Desktop.Program;-HabitTracker.Desktop.Services.*;-CompiledAvaloniaXaml.*"
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: TestResults/Report/
