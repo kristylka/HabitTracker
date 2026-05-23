@@ -25,7 +25,17 @@ jobs:
             libfontconfig1-dev libfreetype6-dev
 
       - name: Restore
-        run: dotnet restore
+        run: |
+          dotnet restore src/HabitTracker.Core/HabitTracker.Core.csproj
+          dotnet restore src/HabitTracker.Data/HabitTracker.Data.csproj
+          dotnet restore src/HabitTracker.Services/HabitTracker.Services.csproj
+          dotnet restore src/HabitTracker.Desktop/HabitTracker.Desktop.csproj \
+            -p:RuntimeIdentifier=linux-x64
+          dotnet restore tests/HabitTracker.Core.Tests/HabitTracker.Core.Tests.csproj
+          dotnet restore tests/HabitTracker.Data.Tests/HabitTracker.Data.Tests.csproj
+          dotnet restore tests/HabitTracker.Services.Tests/HabitTracker.Services.Tests.csproj
+          dotnet restore tests/HabitTracker.Desktop.Tests/HabitTracker.Desktop.Tests.csproj \
+            -p:RuntimeIdentifier=linux-x64
 
       - name: Build
         run: |
